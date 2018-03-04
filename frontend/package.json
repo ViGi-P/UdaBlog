@@ -1,0 +1,32 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.2.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-entypo": "^1.3.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.1",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "typeface-varela-round": "0.0.54"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build && \\cp .gitignore build/.gitignore",
+    "test": "react-app-rewired test --env=jsdom",
+    "deploy-help": "gh-pages --help",
+    "deploy": "gh-pages -d build -b deploy -m 'bump version' -t -g deploy-0.4.0",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.6.5",
+    "babel-plugin-transform-optional-chaining": "^7.0.0-beta.3",
+    "gh-pages": "^1.1.0",
+    "react-app-rewire-less": "^2.1.0",
+    "react-app-rewired": "^1.4.1"
+  }
+}
