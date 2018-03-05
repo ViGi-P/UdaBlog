@@ -14,6 +14,6 @@ export * from './addComment'
 export * from './editComment'
 export * from './deleteComment'
 
-export function toggleSpin(payload = false) {
-  return dispatch => dispatch({ type: TOGGLE_SPIN, payload })
+export const toggleSpin = (payload = false) => {
+  return { type: TOGGLE_SPIN, payload }
 }

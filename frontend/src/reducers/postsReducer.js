@@ -2,16 +2,16 @@ import { GET_POSTS, SELECT_POST, ADD_POST, EDIT_POST, DELETE_POST } from '../hel
 
 const INIT_STATE = {
   selected: null,
-  posts: []
+  postsArray: []
 }
 
-export default ({ selected, posts } = INIT_STATE, { type, payload }) => {
+export default ({ selected, postsArray } = INIT_STATE, { type, payload }) => {
   switch (type) {
-    case GET_POSTS: return { selected, posts: payload }
-    case SELECT_POST: return { posts, selected: payload }
-    case ADD_POST: return { ...INIT_STATE, posts: [payload, ...posts] }
-    case EDIT_POST: return { selected: payload, posts: posts.map(post => post.id === payload.id ? payload : post) }
-    case DELETE_POST: return { ...INIT_STATE, posts: posts.filter(post => post.id !== payload.id) }
-    default: return { selected, posts }
+    case GET_POSTS: return { selected, postsArray: payload }
+    case SELECT_POST: return { postsArray, selected: payload === null ? payload : postsArray.find(({ id }) => payload === id) }
+    case ADD_POST: return { ...INIT_STATE, postsArray: [payload, ...postsArray] }
+    case EDIT_POST: return { selected: payload, postsArray: postsArray.map(post => post.id === payload.id ? payload : post) }
+    case DELETE_POST: return { ...INIT_STATE, postsArray: postsArray.filter(post => post.id !== payload.id) }
+    default: return { selected, postsArray }
   }
 }

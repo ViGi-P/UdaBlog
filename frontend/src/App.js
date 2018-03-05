@@ -1,68 +1,66 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Row, Col } from 'antd'
-import { Link, Route, Switch, Redirect } from 'react-router-dom'
+import { Layout, Select } from 'antd'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { toggleSpin, getCategories, getPosts, getComments } from './actions'
+import { toggleSpin, getCategories, getPosts } from './actions'
+import { Posts, Post } from './containers'
+import { PageTransition, NotFound } from './components'
 
-class PageTransition extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      mounted4Real: false
-    }
-    this.timeout = setTimeout(() => this.setState({ mounted4Real: true }), 200)
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timeout)
-  }
-
-  render() {
-    return <div style={{ ...{ transition: 'opacity 200ms linear' }, ...(this.state.mounted4Real ? { opacity: 1 } : { opacity: 0 })}}>
-      {this.props.children}
-    </div>
-  }
-}
+const { Header, Content } = Layout
+const { Option } = Select
 
 class App extends Component {
   async componentWillMount() {
-    const { toggleSpin, getCategories, getPosts, getComments } = this.props
+    const { toggleSpin, getCategories, getPosts } = this.props
     toggleSpin(true)
-    const promises = [getCategories(), getPosts(), getComments('8xf0y6ziyjabvozdd253nd')]
+    const promises = [getCategories(), getPosts()]
     await Promise.all(promises)
     toggleSpin(false)
   }
 
   render() {
-    console.log('App render', this.props)
+    const { history, location, categories, spinning } = this.props
+    const { pathname } = location
+    const paths = pathname.split('/').filter(el => el)
 
     return (
       <div>
-        <section>
-          <p><Link to='/posts'>One</Link></p>
-          <p><Link to='/posts/react'>Two</Link></p>
-          <p><Link to='/posts/react/866876'>3</Link></p>
-        </section>
-        <section>
-          <Switch>
+        <Header className='header'>
+          <h2>UdaBlog</h2>
+          {
+            paths.length < 3 ? <Select
+              size='large'
+              style={{ width: 150, marginLeft: 5 }}
+              value={paths.length > 1 ? paths[1] : ''}
+              onChange={filter => history.push(`/posts/${filter}`)}
+            >
+              <Option value=''>All categories</Option>
+              {categories.map(({ path }) => <Option key={path} value={path}><span className='filter-option'>{path}</span></Option>)}
+            </Select> : null
+          }
+        </Header>
+        <Content style={{ padding: 15 }}>
+          {spinning || <Switch>
             <Redirect from='/' exact to='/posts'/>
-            <Route path='/posts' exact component={() => <PageTransition><h2>One</h2></PageTransition>}/>
-            <Route path='/posts/:category' exact component={() => <PageTransition><h2>Two</h2></PageTransition>}/>
-            <Route path='/posts/:category/:id' exact component={() => <PageTransition><h2>Post</h2></PageTransition>}/>
-            <Route component={() => <h1>Not Found</h1>}/>
-          </Switch>
-        </section>
+            <Route path='/posts' exact component={props => <PageTransition><Posts {...props}/></PageTransition>}/>
+            <Route path='/posts/:category' exact component={props => <PageTransition><Posts {...props}/></PageTransition>}/>
+            <Route path='/posts/:category/:id' exact component={props => <PageTransition><Post {...props}/></PageTransition>}/>
+            <Route component={() => <PageTransition>
+              <NotFound/>
+            </PageTransition>}/>
+          </Switch>}
+        </Content>
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return {}
+function mapStateToProps({ categories, spinning }) {
+  return { categories, spinning }
 }
 
-const actionCreators = { toggleSpin, getCategories, getPosts, getComments }
+const actionCreators = { toggleSpin, getCategories, getPosts }
 
 export default connect(mapStateToProps, actionCreators)(App)

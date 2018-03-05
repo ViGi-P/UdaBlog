@@ -2,3 +2,73 @@
   width: 100%;
   min-height: 100vh;
 }
+
+.header {
+  background-color: tomato;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.header > h2 {
+  color: white;
+}
+
+.header > span {
+  color: white;
+}
+
+.filter-option {
+  text-transform: capitalize;
+}
+
+.list-action {
+  margin-left: 10px;
+}
+
+.lazy-list-action > .count {
+  color: tomato;
+}
+
+.lazy-list-action:not(:first-child) {
+  margin-left: 30px;
+}
+
+.posts-view {
+  text-align: right;
+}
+
+.edit-modal-category {
+  text-align: right;
+}
+
+@media (max-width: 575px) {
+  .lazy-list-action:not(:first-child) {
+    float: right;
+  }
+
+  .posts-votes {
+    text-align: right;
+  }
+
+  .edit-modal-category {
+    text-align: left;
+  }
+}
+
+.sort-icon {
+  transform-origin: center;
+  transform: rotate(90deg);
+}
+
+.post-title {
+  font-size: 24px;
+}
+
+.comment-card {
+  background-color: #f2f2f2;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+}

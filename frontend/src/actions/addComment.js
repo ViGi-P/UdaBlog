@@ -1,9 +1,9 @@
-import { authKey as Authorization, baseUri, ADD_COMMENT } from '../helpers'
+import { headers, baseUri, ADD_COMMENT } from '../helpers'
 
-export function addPost({ parentId, body, author }) {
+export function addComment({ parentId, body, author }) {
   return async dispatch => {
     try {
-      const rqPayload = { method: 'post', headers: { Authorization },
+      const rqPayload = { method: 'post', headers,
         body: JSON.stringify({ id: Date.now(), timestamp: Date.now(),
           parentId, body, author
         })

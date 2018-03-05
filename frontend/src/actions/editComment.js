@@ -1,10 +1,10 @@
-import { authKey as Authorization, baseUri, EDIT_COMMENT } from '../helpers'
+import { headers, baseUri, EDIT_COMMENT } from '../helpers'
 
-export function editComment({ body, id }) {
+export function editComment(id, data) {
   return async dispatch => {
     try {
-      const rqPayload = { method: 'put', headers: { Authorization },
-        body: JSON.stringify({ body, timestamp: Date.now() })
+      const rqPayload = { method: 'put', headers,
+        body: JSON.stringify(data)
       }
       const payload = await (await fetch(`${baseUri}/comments/${id}`, rqPayload)).json()
       dispatch({

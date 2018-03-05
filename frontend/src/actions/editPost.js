@@ -1,10 +1,10 @@
-import { authKey as Authorization, baseUri, EDIT_POST } from '../helpers'
+import { headers, baseUri, EDIT_POST } from '../helpers'
 
-export function editPost({ title, body, id }) {
+export function editPost(id, data) {
   return async dispatch => {
     try {
-      const rqPayload = { method: 'put', headers: { Authorization },
-        body: JSON.stringify({ title, body })
+      const rqPayload = { method: 'PUT', headers,
+        body: JSON.stringify(data)
       }
       const payload = await (await fetch(`${baseUri}/posts/${id}`, rqPayload)).json()
       dispatch({

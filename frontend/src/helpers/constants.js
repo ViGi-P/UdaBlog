@@ -1,4 +1,5 @@
-export const authKey = 'gve7w612370981heas716t3e1uvsbdibbygqhjblbdis9o3'
+const Authorization = 'gve7w612370981heas716t3e1uvsbdibbygqhjblbdis9o3'
+export const headers = { Authorization, 'Content-Type': 'application/json' }
 export const baseUri = 'http://localhost:3001'
 
 export const TOGGLE_SPIN = 'TOGGLE_SPIN'

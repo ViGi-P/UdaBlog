@@ -1,10 +1,10 @@
-import { authKey as Authorization, baseUri, GET_CATEGORIES } from '../helpers'
+import { headers, baseUri, GET_CATEGORIES } from '../helpers'
 
 export function getCategories() {
   return async dispatch => {
     try {
       const { categories } = await fetch(`${baseUri}/categories`, {
-        headers: { Authorization }
+        headers
       }).then(res => res.json())
       dispatch({
         type: GET_CATEGORIES,
