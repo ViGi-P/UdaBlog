@@ -1,3 +1,5 @@
+[![renovate-app badge][renovate-badge]][renovate-app]
+
 # Readable Project
 To get started right away:
 
@@ -8,3 +10,6 @@ To get started right away:
 * In another terminal window, run the front-end
 	* `cd frontend`
 	* `npm start`
+
+[renovate-badge]: https://img.shields.io/badge/renovate-app-blue.svg
+[renovate-app]: https://renovateapp.com/
